@@ -15,31 +15,23 @@ public class Zaehlung {
 
     }
 
-    public int ermittleAnzahl(Zeitstempel pVpn, Zeitstempel pBis){
+    public int ermittleAnzahlAlt(Zeitstempel pVon, Zeitstempel pBis){
+        return ermittleAnzahlTree(verkehrszaehlung,pVon,pBis);
+    }
+
+    public int ermittleAnzahlTree(BinarySearchTree<OrtsDaten> tree,Zeitstempel pVon, Zeitstempel pBis){
         int anz = 0;
-        ArrayList<Messung> list = durchlaufeBaum(verkehrszaehlung);
-        for (Messung messung : list) {
-            if (messung.getZeitstempel().liegtInnerhalb(pVpn, pBis)) {
+        if (tree.getContent()!=null){
+            if (tree.getContent().getMessungen().getContent().getZeitstempel().liegtInnerhalb(pVon,pBis)){
                 anz++;
             }
         }
+        if (!tree.getLeftTree().isEmpty()){
+            anz += ermittleAnzahlTree(tree.getLeftTree(),pVon,pBis);
+        }
+        if (!tree.getRightTree().isEmpty()){
+            anz += ermittleAnzahlTree(tree.getRightTree(),pVon,pBis);
+        }
         return anz;
-    }
-
-    public ArrayList<Messung> durchlaufeBaum(BinarySearchTree<OrtsDaten> pTree){
-        ArrayList<Messung> arr = new ArrayList<>();
-        if(pTree.getContent() != null){
-            pTree.getContent().getMessungen().toFirst();
-            while (pTree.getContent().getMessungen().hasAccess()){
-                arr.add(pTree.getContent().getMessungen().getContent());
-            }
-        }
-        if (!pTree.getLeftTree().isEmpty()){
-            arr.addAll(durchlaufeBaum(pTree.getLeftTree()));
-        }
-        if (!pTree.getRightTree().isEmpty()) {
-            arr.addAll(durchlaufeBaum(pTree.getRightTree()));
-        }
-        return arr;
     }
 }
