@@ -2,11 +2,9 @@ package ifl1;
 
 import abiturklassen.BinarySearchTree;
 
-import java.util.ArrayList;
-
 public class Zaehlung {
 
-    private BinarySearchTree<OrtsDaten> verkehrszaehlung;
+    private final BinarySearchTree<OrtsDaten> verkehrszaehlung;
     public Zaehlung() {
         verkehrszaehlung = new BinarySearchTree<>();
     }
@@ -22,9 +20,14 @@ public class Zaehlung {
     public int ermittleAnzahlTree(BinarySearchTree<OrtsDaten> tree,Zeitstempel pVon, Zeitstempel pBis){
         int anz = 0;
         if (tree.getContent()!=null){
-            if (tree.getContent().getMessungen().getContent().getZeitstempel().liegtInnerhalb(pVon,pBis)){
-                anz++;
+            tree.getContent().getMessungen().toFirst();
+            while (tree.getContent().getMessungen().hasAccess()) {
+                if (tree.getContent().getMessungen().getContent().getZeitstempel().liegtInnerhalb(pVon, pBis)) {
+                    anz++;
+                }
+                tree.getContent().getMessungen().next();
             }
+
         }
         if (!tree.getLeftTree().isEmpty()){
             anz += ermittleAnzahlTree(tree.getLeftTree(),pVon,pBis);
