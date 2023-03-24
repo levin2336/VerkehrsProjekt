@@ -1,3 +1,4 @@
+import abiturklassen.SuchBaumZeichner;
 import ifl1.Zaehlung;
 
 import javax.swing.*;
@@ -48,12 +49,19 @@ public class KfZErfassung extends JFrame {
     }
 
     private void carButtonPressed(ActionEvent e) {
-
+        if (tfOrt.getText() != null && tfOrt.getText() != "") {
+            System.out.println("---" + tfOrt.getText() + "---");
+            model.erfasseKfz(tfOrt.getText(), 'B');
+        }
     }
 
     private void truckButtonPressed(ActionEvent e) {
+        if (tfOrt.getText() != null) {
+            model.erfasseKfz(tfOrt.getText(), 'C');
+        }
     }
 
     private void bikeButtonPressed(ActionEvent e) {
+        SuchBaumZeichner zeichner = new SuchBaumZeichner(300, 400, model.getVerkehrszaehlung());
     }
 }

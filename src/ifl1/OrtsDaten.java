@@ -5,10 +5,10 @@ import abiturklassen.List;
 
 public class OrtsDaten implements ComparableContent<OrtsDaten> {
 
-    private String ortsKuerzel;
+    private final String ortsKuerzel;
     private int anzahlMessungen;
 
-    private List<Messung> messungen;
+    private final List<Messung> messungen;
 
     public OrtsDaten(String pOrtsKuerzel) {
         this.ortsKuerzel = pOrtsKuerzel;
@@ -28,21 +28,21 @@ public class OrtsDaten implements ComparableContent<OrtsDaten> {
     }
 
     public void erfasseMessung(Messung pMessung){
-
+        messungen.append(pMessung);
     }
 
     @Override
     public boolean isGreater(OrtsDaten pContent) {
-        return false;
+        return this.ortsKuerzel.compareTo(pContent.getOrtsKuerzel()) > 0;
     }
 
     @Override
     public boolean isEqual(OrtsDaten pContent) {
-        return false;
+        return this.ortsKuerzel.compareTo(pContent.getOrtsKuerzel()) == 0;
     }
 
     @Override
     public boolean isLess(OrtsDaten pContent) {
-        return false;
+        return this.ortsKuerzel.compareTo(pContent.getOrtsKuerzel()) < 0;
     }
 }
