@@ -29,6 +29,7 @@ public class OrtsDaten implements ComparableContent<OrtsDaten> {
 
     public void erfasseMessung(Messung pMessung){
         messungen.append(pMessung);
+        anzahlMessungen++;
     }
 
     @Override

@@ -49,7 +49,7 @@ public class SuchBaumZeichner extends Frame {
 
         setSize(frameWidth, frameHeight);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (d.width - getSize().width) / 2;
+        int x = (d.width - getSize().width);
         int y = (d.height - getSize().height) / 2;
         setLocation(x, y);
 
@@ -93,7 +93,8 @@ public class SuchBaumZeichner extends Frame {
         if (baum.isEmpty()) return;
         int mitte = (links + rechts) / 2;
         zeichneInorder(links, mitte, y + _dy, baum.getLeftTree());
-        zeigeKnoten(links, rechts, y, baum.getContent().getOrtsKuerzel());
+        String inhalt = baum.getContent().getOrtsKuerzel() + " (" + baum.getContent().getAnzahlMessungen() + ")";
+        zeigeKnoten(links, rechts, y, inhalt);
         zeichneInorder(mitte, rechts, y + _dy, baum.getRightTree());
     }
 
